@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load static %}
+<!DOCTYPE html>{% load static %}{% load color_tag %}
 <html>
   <head>
     <meta charset="UTF-8">
@@ -17,12 +17,40 @@
       <div class="row">
         <h1 class="col s12">Инфляция в России</h1>
         <div class="col s12 m8">
-        
-        <!-- Ваша логика -->
-
+          <table border="1" width="100%" cellpadding="5">
+              {% for one_row in data%}
+                {% if forloop.first %}
+                  <tr>
+                  {% for one_elem in one_row %}
+                    {% if one_elem.last %}
+                      <td bgcolor="grey">{{ one_elem }}</td>
+                    {% elif one_elem == "Суммарная" %}
+                      <td bgcolor='grey' style="text-align: center"> Всего </td>
+                    {% else %}
+                      <td> {{ one_elem }} </td>
+                    {% endif %}
+                  {% endfor %}
+                  </tr>
+                {% else %}
+                  <tr>
+                    {% for one_elem in one_row %}
+                      {% if forloop.first %}
+                        <td style="font-weight: bold"> {{ one_elem }} </td>
+                      {% elif forloop.last %}
+                        <td bgcolor='grey' style="text-align: center"> {{ one_elem }} </td>
+                      {% elif one_elem == "-" %}
+                        <td bgcolor='white' style="text-align: center"> {{ one_elem }} </td>
+                      {% else %}
+                        <td bgcolor={{one_elem|coloring}}> {{ one_elem }} </td>
+                      {% endif %}
+                  {% endfor %}
+                  </tr>
+                {% endif %}
+              {% endfor %}
+          </table>
         </div>
       </div>
     {% endblock %}
-
   </body>
 </html>
+

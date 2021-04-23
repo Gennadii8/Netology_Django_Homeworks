@@ -1,4 +1,7 @@
-<!DOCTYPE html>{% load static %}
+<!DOCTYPE html>{% load static %}{% load app_tags %}
+
+
+
 <html>
   <head>
     <meta charset="UTF-8">
@@ -18,17 +21,21 @@
         <a href="{% url 'home' %}" class="brand-logo">
         Компьютеры</a>
         <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'examples' %}">Примеры</a></li>
-          <li><a href="{% url 'contacts' %}">Контакты</a></li>
-          <li><a href="{% url 'about' %}">О проекте</a></li>
+          {% block header %}
+            <li><a href="{% url 'examples' %}">Примеры</a></li>
+            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            <li><a href="{% url 'about' %}">О проекте</a></li>
+          {% endblock header %}
         </ul>
       </div>
     </nav>
 
     <div class="row">
       <div class="col s12">
-        <h1 class="col s12">Компьютеры Apple</h1>
-        <img src='{% static "steve.jpg" %}' alt="Apple">
+        {% block data %}
+          <h1 class="col s12">Компьютеры Apple</h1>
+          <img src='{% static "steve.jpg" %}' alt="Apple">
+        {% endblock data %}
       </div>
     </div>
 
